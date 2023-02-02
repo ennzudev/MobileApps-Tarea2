@@ -7,46 +7,14 @@ class Main extends StatefulWidget {
 }
 
 class Home extends State<Main> {
-  bool _isAccessibility = false;
-  bool _isTimer = false;
-  bool _isAndroid = false;
-  bool _isIphone = false;
+  bool food = false;
+  bool info = false;
+  bool location = false;
 
-  final accesibilityoff = SnackBar(
-    content: Text("Accesibility OFF"),
-    duration: Duration(seconds: 3),
-  );
-  final accesibilityon = SnackBar(
-    content: Text("Accesibility ON"),
-    duration: Duration(seconds: 3),
-  );
+  int contador = 0;
 
-  final timeroff = SnackBar(
-    content: Text("Timer OFF"),
-    duration: Duration(seconds: 3),
-  );
-  final timeron = SnackBar(
-    content: Text("Timer ON"),
-    duration: Duration(seconds: 3),
-  );
-
-  final androidoff = SnackBar(
-    content: Text("Android OFF"),
-    duration: Duration(seconds: 3),
-  );
-  final androidon = SnackBar(
-    content: Text("Android ON"),
-    duration: Duration(seconds: 3),
-  );
-
-  final iphoneoff = SnackBar(
-    content: Text("iPhone OFF"),
-    duration: Duration(seconds: 3),
-  );
-  final iphoneon = SnackBar(
-    content: Text("iPhone ON"),
-    duration: Duration(seconds: 3),
-  );
+  var upIconColor = Color(0xFF262626);
+  var downIconColor = Color(0xFF262626);
 
   @override
   Widget build(BuildContext context) {
@@ -83,7 +51,10 @@ class Home extends State<Main> {
                             ElevatedButton(
                               child: Text('Close'),
                               style: ButtonStyle(
-                                backgroundColor: MaterialStatePropertyAll<Color>(Color.fromARGB(255, 36, 87, 198),),
+                                backgroundColor:
+                                    MaterialStatePropertyAll<Color>(
+                                  Color.fromARGB(255, 36, 87, 198),
+                                ),
                               ),
                               onPressed: () {
                                 Navigator.of(context).pop();
@@ -99,176 +70,293 @@ class Home extends State<Main> {
             ),
             body: Container(
               //Screen
-              padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-              child: Container(
-                width: double.infinity,
-                height: 200,
-                padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10.0),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.grey,
-                      offset: Offset(0, 2),
-                      blurRadius: 3.0,
-                      spreadRadius: 0.0,
+              //padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+              child: Column(
+                children: [
+                  Container(
+                    width: double.infinity,
+                    height: 300,
+                    margin: EdgeInsets.symmetric(horizontal: 20),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.only(
+                        bottomLeft: Radius.circular(20),
+                        bottomRight: Radius.circular(20),
+                      ),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.grey,
+                          offset: Offset(0, 3),
+                          blurRadius: 3.0,
+                          spreadRadius: 0.0,
+                        ),
+                      ],
                     ),
-                  ],
-                  border: Border.all(
-                    color: Colors.transparent, //Color(0xFF262626),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.only(
+                        bottomLeft: Radius.circular(20),
+                        bottomRight: Radius.circular(20),
+                      ),
+                      child: Image.network(
+                        'https://www.iteso.mx/image/journal/article?img_id=2252404&t=1432696736760',
+                        fit: BoxFit.cover,
+                      ),
+                    ),
                   ),
-                  color: Color(0xFFEFEFEF),
-                ),
-                child: Column(
-                  children: [
-                    //first row
-                    Container(
-                      padding: EdgeInsets.symmetric(vertical: 10),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Container(
-                            alignment: Alignment.centerRight,
-                            height: 50,
-                            child: Icon(Icons.account_circle_rounded, size: 50),
-                          ),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
+                  Container(
+                    width: double.infinity,
+                    height: 350,
+                    margin: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+                    padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(20.0),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.grey,
+                          offset: Offset(0, 2),
+                          blurRadius: 3.0,
+                          spreadRadius: 0.0,
+                        ),
+                      ],
+                      border: Border.all(
+                        color: Colors.transparent, //Color(0xFF262626),
+                      ),
+                      color: Color(0xFFEFEFEF),
+                    ),
+                    child: Column(
+                      children: [
+                        //second row
+                        Container(
+                          padding: EdgeInsets.symmetric(vertical: 10),
+                          child: Column(
                             children: [
                               Row(
                                 children: [
-                                  Text(
-                                    "Flutter McFlutter",
-                                    style: TextStyle(
-                                        fontSize: 20,
-                                        fontWeight: FontWeight.bold),
+                                  Expanded(
+                                    flex: 10,
+                                    child: Column(
+                                      children: [
+                                        Text(
+                                          "El ITESO Universidad Jesuita de Guadalajara",
+                                          style: TextStyle(
+                                              fontSize: 16,
+                                              color: Color(0xFF262626),
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  Expanded(
+                                    flex: 2,
+                                    child: Column(
+                                      children: [
+                                        AnimatedContainer(
+                                          duration: Duration(seconds: 1),
+                                          child: IconButton(
+                                            icon: Icon(
+                                              Icons.thumb_up,
+                                              color: upIconColor,
+                                            ),
+                                            onPressed: () {
+                                              setState(() {
+                                                contador++;
+                                                upIconColor = Color.fromARGB(
+                                                    255, 36, 198, 63);
+                                              });
+                                              Future.delayed(
+                                                  Duration(seconds: 1), () {
+                                                setState(() {
+                                                  upIconColor =
+                                                      Color(0xFF262626);
+                                                });
+                                              });
+                                            },
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Text(" $contador"),
+                                    ],
+                                  ),
+                                  Expanded(
+                                    flex: 2,
+                                    child: Column(
+                                      children: [
+                                        AnimatedContainer(
+                                          duration: Duration(seconds: 1),
+                                          child: IconButton(
+                                            icon: Icon(
+                                              Icons.thumb_down,
+                                              color: downIconColor,
+                                            ),
+                                            onPressed: () {
+                                              setState(() {
+                                                contador--;
+                                                downIconColor = Color.fromARGB(
+                                                    255, 198, 36, 36);
+                                              });
+                                              Future.delayed(
+                                                  Duration(seconds: 1), () {
+                                                setState(() {
+                                                  downIconColor =
+                                                      Color(0xFF262626);
+                                                });
+                                              });
+                                            },
+                                          ),
+                                        ),
+                                      ],
+                                    ),
                                   ),
                                 ],
                               ),
+                            ],
+                          ),
+                        ),
+                        Container(
+                          padding: EdgeInsets.symmetric(vertical: 10),
+                          child: Column(
+                            children: [
                               Row(
+                                crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
-                                  Text(
-                                    "Experienced App Developer",
-                                    style: TextStyle(
-                                        fontSize: 15,
-                                        fontWeight: FontWeight.w300),
+                                  Expanded(
+                                    child: Builder(
+                                      builder: (BuildContext context) {
+                                        return Container(
+                                          child: Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.center,
+                                            children: [
+                                              IconButton(
+                                                color: food
+                                                    ? Colors.grey
+                                                    : Color(0xFF262626),
+                                                icon: Icon(
+                                                  Icons.restaurant,
+                                                ),
+                                                iconSize: 50,
+                                                onPressed: () {
+                                                  food = !food;
+                                                  setState(() {});
+                                                  ScaffoldMessenger.of(context)
+                                                      .showSnackBar(SnackBar(
+                                                    backgroundColor:
+                                                        Color.fromARGB(
+                                                            255, 36, 87, 198),
+                                                    content: Text(
+                                                        "Puedes encontrar comida en sus cafeterías."),
+                                                    duration:
+                                                        Duration(seconds: 3),
+                                                  ));
+                                                },
+                                              ),
+                                              Text("Comida"),
+                                            ],
+                                          ),
+                                        );
+                                      },
+                                    ),
+                                  ),
+                                  Expanded(
+                                    child: Builder(
+                                      builder: (BuildContext context) {
+                                        return Container(
+                                          child: Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.center,
+                                            children: [
+                                              IconButton(
+                                                color: info
+                                                    ? Colors.grey
+                                                    : Color(0xFF262626),
+                                                icon: Icon(
+                                                  Icons.info,
+                                                ),
+                                                iconSize: 50,
+                                                onPressed: () {
+                                                  info = !info;
+                                                  setState(() {});
+                                                  ScaffoldMessenger.of(context)
+                                                      .showSnackBar(SnackBar(
+                                                    backgroundColor:
+                                                        Color.fromARGB(
+                                                            255, 36, 87, 198),
+                                                    content: Text(
+                                                        "Puedes pedir información en rectoría."),
+                                                    duration:
+                                                        Duration(seconds: 3),
+                                                  ));
+                                                },
+                                              ),
+                                              Text("Información"),
+                                            ],
+                                          ),
+                                        );
+                                      },
+                                    ),
+                                  ),
+                                  Expanded(
+                                    child: Builder(
+                                      builder: (BuildContext context) {
+                                        return Container(
+                                          child: Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.center,
+                                            children: [
+                                              IconButton(
+                                                color: location
+                                                    ? Colors.grey
+                                                    : Color(0xFF262626),
+                                                icon: Icon(
+                                                  Icons.location_pin,
+                                                ),
+                                                iconSize: 50,
+                                                onPressed: () {
+                                                  location = !location;
+                                                  setState(() {});
+                                                  ScaffoldMessenger.of(context)
+                                                      .showSnackBar(SnackBar(
+                                                    backgroundColor:
+                                                        Color.fromARGB(
+                                                            255, 36, 87, 198),
+                                                    duration:
+                                                        Duration(seconds: 3),
+                                                    content: Text(
+                                                        'Se encuentra ubicado en Periférico Sur 8585'),
+                                                  ));
+                                                },
+                                              ),
+                                              Text("Ubicación"),
+                                            ],
+                                          ),
+                                        );
+                                      },
+                                    ),
                                   ),
                                 ],
-                              )
+                              ),
+                              //aqui
                             ],
-                          )
-                        ],
-                      ),
+                          ),
+                        ),
+                        Container(
+                          padding: EdgeInsets.only(top: 20.0),
+                          child: Text(
+                            "Es una universidad privada ubicada en la Zona Metropolitana de Guadalajara, Jalisco, México, fundada en el año 1957. La institución forma parte del Sistema Universitario Jesuita que integra a ocho universidades en México.",
+                            textAlign: TextAlign.justify,
+                            style: TextStyle(
+                              fontSize: 16,
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
-                    //second row
-                    Container(
-                      padding: EdgeInsets.symmetric(vertical: 10),
-                      child: Row(
-                        children: [
-                          Expanded(
-                            child: Column(
-                              children: [
-                                Text("123 Main Street"),
-                              ],
-                            ),
-                          ),
-                          Expanded(
-                            child: Column(),
-                          ),
-                          Expanded(
-                            child: Column(
-                              children: [
-                                Text("(415) 555-0198"),
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    //third row
-                    Container(
-                      padding: EdgeInsets.symmetric(vertical: 10),
-                      child: Row(
-                        children: [
-                          Expanded(
-                            child: Builder(
-                              builder: (BuildContext context) {
-                                return IconButton(
-                                  color: _isAccessibility
-                                      ? Color(0xFF262626)
-                                      : Colors.grey,
-                                  icon: Icon(Icons.accessibility),
-                                  onPressed: () {
-                                    _isAccessibility = !_isAccessibility;
-                                    setState(() {});
-                                    ScaffoldMessenger.of(context).showSnackBar(
-                                        _isAccessibility
-                                            ? accesibilityon
-                                            : accesibilityoff);
-                                  },
-                                );
-                              },
-                            ),
-                          ),
-                          Expanded(
-                            child: Builder(
-                              builder: (BuildContext context) {
-                                return IconButton(
-                                  color: _isTimer
-                                      ? Color(0xFF262626)
-                                      : Colors.grey,
-                                  icon: Icon(Icons.timer),
-                                  onPressed: () {
-                                    _isTimer = !_isTimer;
-                                    setState(() {});
-                                    ScaffoldMessenger.of(context).showSnackBar(
-                                        _isTimer ? timeron : timeroff);
-                                  },
-                                );
-                              },
-                            ),
-                          ),
-                          Expanded(
-                            child: Builder(
-                              builder: (BuildContext context) {
-                                return IconButton(
-                                  color: _isAndroid
-                                      ? Color(0xFF262626)
-                                      : Colors.grey,
-                                  icon: Icon(Icons.phone_android),
-                                  onPressed: () {
-                                    _isAndroid = !_isAndroid;
-                                    setState(() {});
-                                    ScaffoldMessenger.of(context).showSnackBar(
-                                        _isAndroid ? androidon : androidoff);
-                                  },
-                                );
-                              },
-                            ),
-                          ),
-                          Expanded(
-                            child: Builder(
-                              builder: (BuildContext context) {
-                                return IconButton(
-                                  color: _isIphone
-                                      ? Color(0xFF262626)
-                                      : Colors.grey,
-                                  icon: Icon(Icons.phone_iphone),
-                                  onPressed: () {
-                                    _isIphone = !_isIphone;
-                                    setState(() {});
-                                    ScaffoldMessenger.of(context).showSnackBar(
-                                        _isIphone ? iphoneon : iphoneoff);
-                                  },
-                                );
-                              },
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ),
           );
